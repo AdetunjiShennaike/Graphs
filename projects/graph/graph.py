@@ -23,21 +23,41 @@ class Graph:
         if v1 in self.vertices and v2 in self.vertices:
             self.vertices[v1].add(v2)
         else:
-          raise IndexError("That vertex does not exist!")
+          raise IndexError("Missing Vertex, One or more vertices don't exist")
 
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        return self.vertices[vertex_id]
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # Create a queue/stack as appropriate
+        queue = Queue()
+        # Put the starting point in that
+        queue.enqueue(starting_vertex)
 
+        # Make a set to keep track of where we've been
+        visited = set() #set is better than a list ins this scenario because there is no duplication being done with a set
+
+        # While there is stuff in the queue/stack
+        while queue.size() > 0:
+          # Pop the first item
+          vertex = queue.dequeue()
+          # If not visited
+          if vertex not in visited:
+            # DO THE THING!
+            print(vertex)
+            visited.add(vertex)
+            # For each edge in the item
+            for next_vert in self.get_neighbors(vertex):
+            # Add that edge to the queue/stack
+              queue.enqueue(next_vert)
+              
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
